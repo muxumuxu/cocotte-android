@@ -8,4 +8,13 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="AppTheme.NoActionBar" parent="AppTheme">
+        <!-- FIXME: Shouldn't have to set everything -->
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:textColorPrimary">#fff</item>
+        <item name="android:textColorSecondary">#ABFFFFFF</item>
+        <item name="colorControlNormal">#fff</item>
+    </style>
+
 </resources>

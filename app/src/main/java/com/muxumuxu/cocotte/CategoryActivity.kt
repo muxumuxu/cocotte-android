@@ -1,11 +1,12 @@
 package com.muxumuxu.cocotte
 
 import android.os.Bundle
-import android.support.v4.app.NavUtils
+import android.support.design.widget.TabLayout
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.view.MenuItem
 import com.muxumuxu.cocotte.data.Category
+import com.muxumuxu.cocotte.data.Food
 import kotlinx.android.synthetic.main.activity_category.*
 
 class CategoryActivity : AppCompatActivity() {
@@ -21,12 +22,31 @@ class CategoryActivity : AppCompatActivity() {
 
         this.category = intent.getParcelableExtra(CATEGORY_PARAM)
 
+        setSupportActionBar(toolbar)
         title = category!!.name
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
         val adapter = FoodAdapter()
-        adapter.setFoods(Store.foods.filter { it.category.id == category!!.id })
+        adapter.setFoods(this.getFoods())
         foods.adapter = adapter
         foods.layoutManager = LinearLayoutManager(this)
+
+        tabs.addOnTabSelectedListener(object: TabLayout.OnTabSelectedListener {
+            override fun onTabSelected(tab: TabLayout.Tab) {
+                adapter.setFoods(when (tab.position) {
+                    1 -> getFoods().filter { it.danger == "empty" }
+                    2 -> getFoods().filter { it.danger == "care" }
+                    3 -> getFoods().filter { it.danger == "avoid" }
+                    else -> getFoods()
+                })
+            }
+
+            override fun onTabReselected(tab: TabLayout.Tab?) {
+            }
+
+            override fun onTabUnselected(tab: TabLayout.Tab?) {
+            }
+        })
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -37,5 +57,9 @@ class CategoryActivity : AppCompatActivity() {
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun getFoods(): List<Food> {
+        return Store.foods.filter { it.category.id == category!!.id }
     }
 }

@@ -2,4 +2,5 @@
     <string name="app_name">Cocotte</string>
     <string name="category_cover_content_description">Image Catégorie</string>
     <string name="risk_icon_content_description">Icône risque</string>
+    <string name="all">TOUS</string>
 </resources>

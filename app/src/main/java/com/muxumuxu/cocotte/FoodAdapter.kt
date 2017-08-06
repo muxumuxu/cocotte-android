@@ -3,11 +3,12 @@ package com.muxumuxu.cocotte
 import android.content.Intent
 import android.support.v7.widget.RecyclerView
 import android.view.ViewGroup
+import com.l4digital.fastscroll.FastScroller
 import com.muxumuxu.cocotte.data.Food
 import kotlinx.android.synthetic.main.food_item.view.*
 import java.util.*
 
-class FoodAdapter : RecyclerView.Adapter<FoodViewHolder>() {
+class FoodAdapter : RecyclerView.Adapter<FoodViewHolder>(), FastScroller.SectionIndexer {
 
     private var foods: List<Food>
 
@@ -16,8 +17,13 @@ class FoodAdapter : RecyclerView.Adapter<FoodViewHolder>() {
     }
 
     fun setFoods(foods: List<Food>) {
-        this.foods = foods
+        // FIXME: API side
+        this.foods = foods.filter { !it.name.isEmpty() }
         notifyDataSetChanged()
+    }
+
+    override fun getSectionText(position: Int): String {
+        return foods[position].name[0].toString()
     }
 
     override fun getItemCount(): Int {

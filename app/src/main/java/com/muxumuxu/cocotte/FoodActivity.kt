@@ -2,6 +2,7 @@ package com.muxumuxu.cocotte
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.view.MenuItem
 import com.muxumuxu.cocotte.data.Food
 
 class FoodActivity : AppCompatActivity() {
@@ -18,5 +19,16 @@ class FoodActivity : AppCompatActivity() {
         this.food = intent.getParcelableExtra(FOOD_PARAM)
 
         title = food!!.name
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            android.R.id.home -> {
+                onBackPressed()
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 }

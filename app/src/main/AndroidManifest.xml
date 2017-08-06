@@ -19,11 +19,9 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".CategoryActivity"
-            android:parentActivityName=".MainActivity"/>
+            android:name=".CategoryActivity"/>
         <activity
-            android:name=".FoodActivity"
-            android:parentActivityName=".CategoryActivity"/>
+            android:name=".FoodActivity"/>
     </application>
 
 </manifest>

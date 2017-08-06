@@ -6,7 +6,7 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.view.ViewGroup
+import android.view.*
 import com.muxumuxu.cocotte.data.Category
 import com.muxumuxu.cocotte.data.Food
 import com.muxumuxu.cocotte.network.Endpoint
@@ -37,6 +37,11 @@ class MainActivity : AppCompatActivity() {
             override fun onFailure(call: Call<List<Food>>?, t: Throwable?) {
             }
         })
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.activity_main, menu)
+        return true
     }
 
     class CategoriesAdapter : RecyclerView.Adapter<CategoryViewHolder>() {

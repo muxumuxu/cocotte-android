@@ -4,14 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.muxumuxu.cocotte.MainActivity">
+    tools:context="com.muxumuxu.cocotte.CategoryActivity">
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/categories"
+        android:id="@+id/foods"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:clipToPadding="false"
-        android:padding="4dp"/>
-
+        android:clipToPadding="false"/>
 </RelativeLayout>
-

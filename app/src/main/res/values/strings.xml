@@ -13,4 +13,7 @@
     <string name="empty">Autorisé</string>
     <string name="care">Faire attention</string>
     <string name="avoid">À éviter</string>
+    <string name="favorite_icon">Icone favoris vide</string>
+    <string name="favorite_empty">Vous pouvez retrouver ici les aliments que vous voulez ajouter en favoris.</string>
+    <string name="favorites">Favoris</string>
 </resources>

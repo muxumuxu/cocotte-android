@@ -23,6 +23,9 @@
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".FoodActivity"/>
+        <activity
+            android:name=".FavoritesActivity"
+            android:label="@string/favorites"/>
     </application>
 
 </manifest>

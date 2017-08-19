@@ -1,12 +1,12 @@
 package com.muxumuxu.cocotte
 
 import android.content.Intent
-import android.graphics.Color
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.view.*
+import android.view.Menu
+import android.view.ViewGroup
 import com.muxumuxu.cocotte.data.Category
 import com.muxumuxu.cocotte.data.Food
 import com.muxumuxu.cocotte.network.Endpoint
@@ -73,14 +73,10 @@ class MainActivity : AppCompatActivity() {
     class CategoryViewHolder(parent: ViewGroup) :
             RecyclerView.ViewHolder(parent.inflate(R.layout.category_item)) {
 
-        // TODO: Get colors from API or something
-        val colors = arrayOf("#484291", "#FFDB3A", "#007CFF", "#9F57B7", "#99D22A", "#FFDA3A",
-                "#99D22A", "#484291", "#FFDA3A", "#9F57B6", "#FFDA3A", "#99D22A")
-
         fun bind(item: Category) = with(itemView) {
             cover.setImageResource(context.resources.getIdentifier(item.image, "drawable", context.packageName))
             title.text = item.name
-            background_category.setBackgroundColor(Color.parseColor(colors[item.order - 1]))
+            background_category.setBackgroundColor(getCategoryColor(item.order - 1))
             background_category.setOnClickListener {
                 context.startActivity(Intent(context, CategoryActivity::class.java).putExtra(CategoryActivity.CATEGORY_PARAM, item))
             }

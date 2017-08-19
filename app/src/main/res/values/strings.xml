@@ -3,4 +3,14 @@
     <string name="category_cover_content_description">Image Catégorie</string>
     <string name="risk_icon_content_description">Icône risque</string>
     <string name="all">TOUS</string>
+    <string name="search">Recherche</string>
+    <string name="more">Plus</string>
+    <string name="risk">Risque</string>
+    <string name="no_risk">Aucun.</string>
+    <string name="information">Information</string>
+    <string name="no_information">Aucune.</string>
+    <string name="disclaimer">Toutes ces recommandations sont données à titre indicatif, elles ne peuvent remplacer l\'avis de votre médecin.</string>
+    <string name="empty">Autorisé</string>
+    <string name="care">Faire attention</string>
+    <string name="avoid">À éviter</string>
 </resources>

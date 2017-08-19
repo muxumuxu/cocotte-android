@@ -14,7 +14,7 @@ class CategoryActivity : AppCompatActivity() {
         val CATEGORY_PARAM = "category"
     }
 
-    var category: Category? = null
+    lateinit private var category: Category
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,7 +23,7 @@ class CategoryActivity : AppCompatActivity() {
         this.category = intent.getParcelableExtra(CATEGORY_PARAM)
 
         setSupportActionBar(toolbar)
-        title = category!!.name
+        title = category.name
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         val adapter = FoodAdapter()
@@ -60,6 +60,6 @@ class CategoryActivity : AppCompatActivity() {
     }
 
     private fun getFoods(): List<Food> {
-        return Store.foods.filter { it.category.id == category!!.id }
+        return Store.foods.filter { it.category.id == category.id }
     }
 }

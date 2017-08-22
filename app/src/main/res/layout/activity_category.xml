@@ -52,5 +52,6 @@
         android:layout_below="@+id/app_bar"
         android:clipToPadding="false"
         app:bubbleColor="@color/colorPrimary"
-        app:handleColor="@color/colorPrimaryDark"/>
+        app:handleColor="@color/colorPrimaryDark"
+        app:layoutManager="LinearLayoutManager"/>
 </RelativeLayout>

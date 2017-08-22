@@ -9,15 +9,11 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.ViewGroup
 import com.muxumuxu.cocotte.data.Category
-import com.muxumuxu.cocotte.data.Food
 import com.muxumuxu.cocotte.network.Endpoint
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.category_item.view.*
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import retrofit2.Retrofit
-import retrofit2.converter.moshi.MoshiConverterFactory
 import java.util.*
 
 class MainActivity : AppCompatActivity() {
@@ -29,15 +25,14 @@ class MainActivity : AppCompatActivity() {
         val adapter = CategoriesAdapter()
         categories.adapter = adapter
         categories.layoutManager = GridLayoutManager(this, 2)
-        Retrofit.Builder().baseUrl("https://pregnant-foods.herokuapp.com").addConverterFactory(MoshiConverterFactory.create()).build().create(Endpoint::class.java).fetchFoods().enqueue(object : Callback<List<Food>> {
-            override fun onResponse(call: Call<List<Food>>, response: Response<List<Food>>) {
-                Store.foods = response.body()
-                adapter.setCategories(Store.foods.map { it.category }.distinct().sortedBy { it.order })
-            }
 
-            override fun onFailure(call: Call<List<Food>>?, t: Throwable?) {
-            }
-        })
+        Endpoint.getInstance().fetchFoods()
+                .subscribeOn(Schedulers.io())
+                .doOnSuccess(CocotteDatabase.getInstance(this).foodDao()::insertFoods)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({ foodList ->
+                    adapter.setCategories(foodList.map { it.category }.distinct().sortedBy { it.order })
+                })
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

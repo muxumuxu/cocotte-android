@@ -3,10 +3,11 @@ package com.muxumuxu.cocotte
 import android.os.Bundle
 import android.support.design.widget.TabLayout
 import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.LinearLayoutManager
 import android.view.MenuItem
 import com.muxumuxu.cocotte.data.Category
 import com.muxumuxu.cocotte.data.Food
+import io.reactivex.Flowable
+import io.reactivex.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.activity_category.*
 
 class CategoryActivity : AppCompatActivity() {
@@ -16,28 +17,34 @@ class CategoryActivity : AppCompatActivity() {
 
     lateinit private var category: Category
 
+    lateinit private var adapter: FoodAdapter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_category)
 
         this.category = intent.getParcelableExtra(CATEGORY_PARAM)
 
+        adapter = FoodAdapter()
+        foods.adapter = adapter
+
+        getFoods().subscribe({ foodList ->
+            adapter.setFoods(foodList)
+        })
+
         setSupportActionBar(toolbar)
         title = category.name
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        val adapter = FoodAdapter()
-        adapter.setFoods(this.getFoods())
-        foods.adapter = adapter
-        foods.layoutManager = LinearLayoutManager(this)
-
-        tabs.addOnTabSelectedListener(object: TabLayout.OnTabSelectedListener {
+        tabs.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab) {
-                adapter.setFoods(when (tab.position) {
-                    1 -> getFoods().filter { it.danger == "empty" }
-                    2 -> getFoods().filter { it.danger == "care" }
-                    3 -> getFoods().filter { it.danger == "avoid" }
-                    else -> getFoods()
+                getFoods().subscribe({ foodList ->
+                    adapter.setFoods(when (tab.position) {
+                        1 -> foodList.filter { it.danger == "empty" }
+                        2 -> foodList.filter { it.danger == "care" }
+                        3 -> foodList.filter { it.danger == "avoid" }
+                        else -> foodList
+                    })
                 })
             }
 
@@ -59,7 +66,9 @@ class CategoryActivity : AppCompatActivity() {
         }
     }
 
-    private fun getFoods(): List<Food> {
-        return Store.foods.filter { it.category.id == category.id }
+    private fun getFoods(): Flowable<List<Food>> {
+        return CocotteDatabase.getInstance(this).foodDao().getAll()
+                .observeOn(AndroidSchedulers.mainThread())
+                .map { it.filter { it.category.id == category.id } }
     }
 }

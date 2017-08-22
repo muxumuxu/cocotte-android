@@ -137,7 +137,7 @@
         android:layout_marginEnd="16dp"
         android:clickable="true"
         android:focusable="true"
-        android:src="@drawable/ic_not_favorite"
+        android:src="@drawable/ic_favorite_icon"
         app:backgroundTint="@android:color/white"
         app:borderWidth="0dp"
         app:fabSize="normal"

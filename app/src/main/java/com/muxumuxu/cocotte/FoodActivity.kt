@@ -5,6 +5,8 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
 import com.muxumuxu.cocotte.data.Food
+import io.reactivex.internal.operators.completable.CompletableFromCallable
+import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_food.*
 
 class FoodActivity : AppCompatActivity() {
@@ -53,6 +55,17 @@ class FoodActivity : AppCompatActivity() {
         }
 
         danger.text = getString(resources.getIdentifier(food.danger, "string", packageName))
-        danger.setCompoundDrawablesWithIntrinsicBounds(getDrawable(resources.getIdentifier(food.danger, "drawable", packageName)), null, null, null)
+        danger.setCompoundDrawablesWithIntrinsicBounds(
+                getDrawable(resources.getIdentifier(food.danger, "drawable", packageName))
+                , null, null, null)
+
+        favorize.isSelected = food.favorite
+        favorize.setOnClickListener {
+            food.favorite = !food.favorite
+            favorize.isSelected = food.favorite
+            CompletableFromCallable {
+                CocotteDatabase.getInstance(this).foodDao().updateFood(food)
+            }.subscribeOn(Schedulers.io()).subscribe()
+        }
     }
 }

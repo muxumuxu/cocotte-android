@@ -33,6 +33,7 @@ ext {
     supportLibraryVersion = '26.0.1'
     constraintLayoutVersion = '1.0.2'
     okHttpVersion = '2.3.0'
+    roomVersion = '1.0.0-alpha9'
 }
 
 dependencies {
@@ -46,8 +47,16 @@ dependencies {
 
     implementation "com.android.support.constraint:constraint-layout:$constraintLayoutVersion"
 
+    implementation "android.arch.persistence.room:runtime:$roomVersion"
+    implementation "android.arch.persistence.room:rxjava2:$roomVersion"
+    kapt "android.arch.persistence.room:compiler:$roomVersion"
+
+    implementation "io.reactivex.rxjava2:rxjava:2.1.2"
+    implementation "io.reactivex.rxjava2:rxandroid:2.0.1"
+
     implementation "com.squareup.retrofit2:retrofit:$okHttpVersion"
     implementation "com.squareup.retrofit2:converter-moshi:$okHttpVersion"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:$okHttpVersion"
 
     implementation ('com.l4digital.fastscroll:fastscroll:1.0.4') {
         exclude group: 'com.android.support', module: '*'

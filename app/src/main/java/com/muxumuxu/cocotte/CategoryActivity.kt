@@ -36,7 +36,8 @@ class CategoryActivity : AppCompatActivity() {
         title = category.name
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        tabs.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+        // TODO: Custom layout?
+        (tabs as TabLayout).addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab) {
                 getFoods().subscribe({ foodList ->
                     adapter.setFoods(when (tab.position) {

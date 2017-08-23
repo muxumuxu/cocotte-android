@@ -8,32 +8,25 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.activity_favorites.*
 
 class FavoritesActivity : AppCompatActivity() {
+
+    lateinit private var adapter: FoodAdapter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_favorites)
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
+        adapter = FoodAdapter()
+        foods.adapter = adapter
+        foods.setEmptyView(empty_view)
+
         CocotteDatabase.getInstance(this).foodDao()
                 .getFavorites()
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(this::fillList)
-    }
-
-    // TODO: Use something better than ViewSwitcher
-    private fun fillList(foodList: List<Food>) {
-        if (foodList.isNotEmpty()) {
-            val adapter = FoodAdapter()
-            adapter.setFoods(foodList)
-            foods.adapter = adapter
-            if (empty_switcher.currentView.id != R.id.foods) {
-                empty_switcher.showNext()
-            }
-        } else {
-            if (empty_switcher.currentView.id == R.id.foods) {
-                empty_switcher.showNext()
-            }
-        }
+                .subscribe { foodList ->
+                    adapter.setFoods(foodList)
+                }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

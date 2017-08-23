@@ -5,7 +5,8 @@
         android:id="@+id/search_menu"
         android:icon="@drawable/ic_search_white_24dp"
         android:title="@string/search"
-        app:showAsAction="ifRoom"/>
+        app:actionViewClass="android.support.v7.widget.SearchView"
+        app:showAsAction="collapseActionView|ifRoom"/>
     <item
         android:id="@+id/favorites_menu"
         android:title="@string/favorites"

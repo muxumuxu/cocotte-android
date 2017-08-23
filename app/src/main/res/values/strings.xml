@@ -16,4 +16,8 @@
     <string name="favorite_icon">Icone favoris vide</string>
     <string name="favorite_empty">Vous pouvez retrouver ici les aliments que vous voulez ajouter en favoris.</string>
     <string name="favorites">Favoris</string>
+    <string name="search_hint">Rechercher un aliment…</string>
+    <string name="results">Résultats</string>
+    <string name="search_no_match">Votre recherche n\'a donné aucun résultat.</string>
+    <string name="suggest_food">Suggérer un élément</string>
 </resources>

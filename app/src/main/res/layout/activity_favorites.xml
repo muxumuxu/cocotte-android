@@ -4,42 +4,37 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-    <ViewSwitcher
-        android:id="@+id/empty_switcher"
+    <LinearLayout
+        android:id="@+id/empty_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:orientation="vertical">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/favorite_icon"
+            android:src="@drawable/favorite_empty"/>
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:contentDescription="@string/favorite_icon"
-                android:src="@drawable/favorite_empty"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="26dp"
+            android:fontFamily="sans-serif-medium"
+            android:paddingEnd="16dp"
+            android:paddingStart="16dp"
+            android:text="@string/favorite_empty"
+            android:textAlignment="center"
+            android:textColor="#2B2B2C"
+            android:textSize="20sp"/>
+    </LinearLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="26dp"
-                android:fontFamily="sans-serif-medium"
-                android:paddingEnd="16dp"
-                android:paddingStart="16dp"
-                android:text="@string/favorite_empty"
-                android:textAlignment="center"
-                android:textColor="#2B2B2C"
-                android:textSize="20sp"/>
-        </LinearLayout>
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/foods"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layoutManager="LinearLayoutManager"/>
-    </ViewSwitcher>
+    <com.muxumuxu.cocotte.EmptyAwareRecyclerView
+        android:id="@+id/foods"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layoutManager="LinearLayoutManager"/>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/share"

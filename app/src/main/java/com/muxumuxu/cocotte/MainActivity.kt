@@ -12,6 +12,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.ViewGroup
 import com.muxumuxu.cocotte.data.Category
+import com.muxumuxu.cocotte.data.Food
 import com.muxumuxu.cocotte.network.Endpoint
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -21,21 +22,26 @@ import java.util.*
 
 class MainActivity : AppCompatActivity() {
 
+    lateinit private var adapter: CategoriesAdapter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val adapter = CategoriesAdapter()
+        adapter = CategoriesAdapter()
         categories.adapter = adapter
         categories.layoutManager = GridLayoutManager(this, 2)
 
+        CocotteDatabase.getInstance(this).foodDao().getAll()
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(this::fillData)
+
+        // TODO: Check if we need to get food from API first
         Endpoint.getInstance().fetchFoods()
                 .subscribeOn(Schedulers.io())
                 .doOnSuccess(CocotteDatabase.getInstance(this).foodDao()::insertFoods)
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({ foodList ->
-                    adapter.setCategories(foodList.map { it.category }.distinct().sortedBy { it.order })
-                })
+                .subscribe(this::fillData)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -55,6 +61,10 @@ class MainActivity : AppCompatActivity() {
             }
             else -> super.onOptionsItemSelected(item)
         }
+    }
+
+    private fun fillData(foodList: List<Food>) {
+        adapter.setCategories(foodList.map { it.category }.distinct().sortedBy { it.order })
     }
 
     class CategoriesAdapter : RecyclerView.Adapter<CategoryViewHolder>() {

@@ -41,7 +41,10 @@ class CategoryViewHolder(parent: ViewGroup) :
         title.text = item.name
         background_category.setBackgroundColor(getCategoryColor(item.order - 1))
         background_category.setOnClickListener {
-            context.startActivity(Intent(context, CategoryActivity::class.java).putExtra(CategoryActivity.CATEGORY_PARAM, item))
+            context.startActivity(Intent(context, CategoryActivity::class.java)
+                    .putExtra(CategoryActivity.CATEGORY_ID_PARAM, item.id)
+                    .putExtra(CategoryActivity.CATEGORY_NAME_PARAM, item.name)
+            )
         }
     }
 }

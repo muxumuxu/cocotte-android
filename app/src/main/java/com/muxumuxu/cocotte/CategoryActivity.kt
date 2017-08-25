@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
-import com.muxumuxu.cocotte.data.Category
 import com.muxumuxu.cocotte.data.Food
 import io.reactivex.Flowable
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -12,10 +11,11 @@ import kotlinx.android.synthetic.main.activity_category.*
 
 class CategoryActivity : AppCompatActivity() {
     companion object {
-        val CATEGORY_PARAM = "category"
+        val CATEGORY_ID_PARAM = "category_id"
+        val CATEGORY_NAME_PARAM = "category_name"
     }
 
-    lateinit private var category: Category
+    private var id: Int? = null
 
     lateinit private var adapter: FoodAdapter
 
@@ -23,7 +23,7 @@ class CategoryActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_category)
 
-        this.category = intent.getParcelableExtra(CATEGORY_PARAM)
+        this.id = intent.getIntExtra(CATEGORY_ID_PARAM, 0)
 
         adapter = FoodAdapter()
         foods.adapter = adapter
@@ -32,7 +32,7 @@ class CategoryActivity : AppCompatActivity() {
             adapter.setFoods(foodList)
         }
 
-        title = category.name
+        title = intent.getStringExtra(CATEGORY_NAME_PARAM)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
@@ -66,7 +66,7 @@ class CategoryActivity : AppCompatActivity() {
 
     private fun getFoods(): Flowable<List<Food>> {
         return CocotteDatabase.getInstance(this).foodDao()
-                .getFoodFromCategory(category.id)
+                .getFoodFromCategory(this.id!!)
                 .observeOn(AndroidSchedulers.mainThread())
     }
 }

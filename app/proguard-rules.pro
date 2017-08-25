@@ -48,3 +48,7 @@
 -keepclasseswithmembers class * {
     @retrofit2.http.* <methods>;
 }
+
+# SearchView
+
+-keep class android.support.v7.widget.SearchView { *; }

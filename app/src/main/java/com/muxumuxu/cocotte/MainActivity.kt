@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.SearchView
 import android.view.Menu
 import com.muxumuxu.cocotte.network.Endpoint
+import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -22,10 +23,15 @@ class MainActivity : AppCompatActivity() {
 
         setContentView(R.layout.activity_main)
 
-        // TODO: Check if we need to get food from API first
-        Endpoint.getInstance().fetchFoods()
-                .subscribeOn(Schedulers.io())
-                .doOnSuccess(CocotteDatabase.getInstance(this).foodDao()::insertFoods)
+        CocotteDatabase.getInstance(this).foodDao().getAll()
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe { foodList ->
+                    if (foodList.isEmpty()) {
+                        Endpoint.getInstance().fetchFoods()
+                                .subscribeOn(Schedulers.io())
+                                .subscribe(CocotteDatabase.getInstance(this).foodDao()::insertFoods)
+                    }
+                }
 
         setSupportActionBar(toolbar)
 

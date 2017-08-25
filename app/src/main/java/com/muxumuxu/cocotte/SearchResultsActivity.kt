@@ -3,9 +3,9 @@ package com.muxumuxu.cocotte
 import android.app.SearchManager
 import android.content.Intent
 import android.os.Bundle
-import android.support.design.widget.Snackbar
-import android.support.design.widget.TabLayout
 import android.support.v7.app.AppCompatActivity
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.Toast
 import com.muxumuxu.cocotte.data.Food
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -21,7 +21,8 @@ class SearchResultsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_search_results)
 
-        setSupportActionBar(toolbar)
+        handleIntent(intent)
+
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         adapter = FoodAdapter()
@@ -32,31 +33,33 @@ class SearchResultsActivity : AppCompatActivity() {
             Toast.makeText(this, "TODO", Toast.LENGTH_LONG).show()
             // TODO: Suggest food
         }
-
-        // FIXME: Custom layout?
-        (tabs as TabLayout).addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
-            override fun onTabSelected(tab: TabLayout.Tab) {
-                adapter.setFoods(when (tab.position) {
-                    1 -> foodList.filter { it.danger == "empty" }
-                    2 -> foodList.filter { it.danger == "care" }
-                    3 -> foodList.filter { it.danger == "avoid" }
-                    else -> foodList
-                })
-            }
-
-            override fun onTabReselected(tab: TabLayout.Tab?) {
-            }
-
-            override fun onTabUnselected(tab: TabLayout.Tab?) {
-            }
-        })
-
-        handleIntent(intent)
     }
 
     override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
         handleIntent(intent)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.filter, menu)
+
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.all, R.id.empty, R.id.avoid, R.id.care -> {
+                adapter.setFoods(when (item.itemId) {
+                    R.id.empty -> foodList.filter { it.danger == "empty" }
+                    R.id.care -> foodList.filter { it.danger == "care" }
+                    R.id.avoid -> foodList.filter { it.danger == "avoid" }
+                    else -> foodList
+                })
+                item.isChecked = true
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 
     // FIXME: Do search in SQL

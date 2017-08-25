@@ -15,6 +15,12 @@ interface FoodDao {
     @Query("SELECT * FROM foods")
     fun getAll(): Flowable<List<Food>>
 
-    @Query("SELECT * FROM foods where favorite = 1")
+    @Query("SELECT * FROM foods WHERE catid = :id")
+    fun getFoodFromCategory(id: Int): Flowable<List<Food>>
+
+    @Query("SELECT * FROM foods WHERE favorite = 1")
     fun getFavorites(): Flowable<List<Food>>
+
+    @Query("SELECT * FROM foods WHERE id = :id")
+    fun getFood(id: Int): Flowable<Food>
 }

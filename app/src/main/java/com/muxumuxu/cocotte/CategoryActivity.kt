@@ -1,8 +1,8 @@
 package com.muxumuxu.cocotte
 
 import android.os.Bundle
-import android.support.design.widget.TabLayout
 import android.support.v7.app.AppCompatActivity
+import android.view.Menu
 import android.view.MenuItem
 import com.muxumuxu.cocotte.data.Category
 import com.muxumuxu.cocotte.data.Food
@@ -28,33 +28,18 @@ class CategoryActivity : AppCompatActivity() {
         adapter = FoodAdapter()
         foods.adapter = adapter
 
-        getFoods().subscribe({ foodList ->
+        getFoods().subscribe { foodList ->
             adapter.setFoods(foodList)
-        })
+        }
 
-        setSupportActionBar(toolbar)
         title = category.name
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+    }
 
-        // TODO: Custom layout?
-        (tabs as TabLayout).addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
-            override fun onTabSelected(tab: TabLayout.Tab) {
-                getFoods().subscribe({ foodList ->
-                    adapter.setFoods(when (tab.position) {
-                        1 -> foodList.filter { it.danger == "empty" }
-                        2 -> foodList.filter { it.danger == "care" }
-                        3 -> foodList.filter { it.danger == "avoid" }
-                        else -> foodList
-                    })
-                })
-            }
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.filter, menu)
 
-            override fun onTabReselected(tab: TabLayout.Tab?) {
-            }
-
-            override fun onTabUnselected(tab: TabLayout.Tab?) {
-            }
-        })
+        return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -63,13 +48,25 @@ class CategoryActivity : AppCompatActivity() {
                 onBackPressed()
                 true
             }
+            R.id.all, R.id.empty, R.id.avoid, R.id.care -> {
+                getFoods().subscribe { foodList ->
+                    adapter.setFoods(when (item.itemId) {
+                        R.id.empty -> foodList.filter { it.danger == "empty" }
+                        R.id.care -> foodList.filter { it.danger == "care" }
+                        R.id.avoid -> foodList.filter { it.danger == "avoid" }
+                        else -> foodList
+                    })
+                }
+                item.isChecked = true
+                true
+            }
             else -> super.onOptionsItemSelected(item)
         }
     }
 
     private fun getFoods(): Flowable<List<Food>> {
-        return CocotteDatabase.getInstance(this).foodDao().getAll()
+        return CocotteDatabase.getInstance(this).foodDao()
+                .getFoodFromCategory(category.id)
                 .observeOn(AndroidSchedulers.mainThread())
-                .map { it.filter { it.category.id == category.id } }
     }
 }

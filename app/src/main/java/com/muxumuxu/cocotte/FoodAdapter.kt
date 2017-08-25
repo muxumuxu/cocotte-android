@@ -17,8 +17,7 @@ class FoodAdapter : RecyclerView.Adapter<FoodViewHolder>(), FastScroller.Section
     }
 
     fun setFoods(foods: List<Food>) {
-        // FIXME: API side
-        this.foods = foods.filter { !it.name.isEmpty() }
+        this.foods = foods
         notifyDataSetChanged()
     }
 
@@ -46,7 +45,7 @@ class FoodViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(parent.inflate
         name.text = food.name
 
         food_container.setOnClickListener {
-            context.startActivity(Intent(context, FoodActivity::class.java).putExtra(FoodActivity.FOOD_PARAM, food))
+            context.startActivity(Intent(context, FoodActivity::class.java).putExtra(FoodActivity.FOOD_ID_PARAM, food.id))
         }
     }
 }

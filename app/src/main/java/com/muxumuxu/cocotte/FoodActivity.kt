@@ -3,29 +3,29 @@ package com.muxumuxu.cocotte
 import android.graphics.PorterDuff
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import android.view.MenuItem
 import com.muxumuxu.cocotte.data.Food
+import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.internal.operators.completable.CompletableFromCallable
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_food.*
 
 class FoodActivity : AppCompatActivity() {
     companion object {
-        val FOOD_PARAM = "food"
+        val FOOD_ID_PARAM = "food_id"
     }
-
-    lateinit private var food: Food
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_food)
 
-        this.food = intent.getParcelableExtra(FOOD_PARAM)
+        CocotteDatabase.getInstance(this).foodDao()
+                .getFood(intent.getIntExtra(FOOD_ID_PARAM, -1))
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe { food -> bindView(food) }
 
-        title = food.name
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-
-        bindView()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -38,8 +38,11 @@ class FoodActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
-    private fun bindView() {
+    // TODO: Better sync?
+    private fun bindView(food: Food) {
         val category = food.category
+
+        title = food.name
 
         cover.setImageResource(resources.getIdentifier(category.image, "drawable", packageName))
         cover.background.setColorFilter(getCategoryColor(category.order - 1), PorterDuff.Mode.SRC_ATOP)
@@ -47,7 +50,7 @@ class FoodActivity : AppCompatActivity() {
         food_title.text = food.name
 
         if (food.risk != null) {
-            risk.text = food.risk?.name
+            risk.text = food.risk.name
         }
 
         if (!food.info.isNullOrEmpty()) {
@@ -62,7 +65,6 @@ class FoodActivity : AppCompatActivity() {
         favorize.isSelected = food.favorite
         favorize.setOnClickListener {
             food.favorite = !food.favorite
-            favorize.isSelected = food.favorite
             CompletableFromCallable {
                 CocotteDatabase.getInstance(this).foodDao().updateFood(food)
             }.subscribeOn(Schedulers.io()).subscribe()

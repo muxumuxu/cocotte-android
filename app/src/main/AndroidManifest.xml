@@ -11,7 +11,9 @@
         android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity
+            android:name=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.app.default_searchable"
                 android:value=".SearchResultsActivity"/>
@@ -22,19 +24,14 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".CategoryActivity"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:name=".CategoryActivity"/>
         <activity
             android:name=".FoodActivity"/>
-        <activity
-            android:name=".FavoritesActivity"
-            android:label="@string/favorites"/>
         <activity
             android:name=".SearchResultsActivity"
             android:label="@string/results"
             android:launchMode="singleTop"
-            android:parentActivityName=".MainActivity"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:parentActivityName=".MainActivity">
             <meta-data
                 android:name="android.app.searchable"
                 android:resource="@xml/searchable"/>

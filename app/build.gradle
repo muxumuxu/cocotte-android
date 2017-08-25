@@ -13,8 +13,8 @@ android {
         applicationId "com.muxumuxu.cocotte"
         minSdkVersion 21
         targetSdkVersion 26
-        versionCode 1000
-        versionName "0.1.0"
+        versionCode 1001
+        versionName "0.1.1"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     signingConfigs {

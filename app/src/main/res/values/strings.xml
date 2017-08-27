@@ -1,8 +1,8 @@
 <resources>
-    <!-- Not translatable -->
-    <string name="app_name">Cocotte</string>
-    <string name="food_title_transition_name">food_title_transition</string>
-    <string name="food_risk_transition_name">food_risk_transition</string>
+    <string name="app_name" translatable="false">Cocotte</string>
+    <string name="food_title_transition_name" translatable="false">food_title_transition</string>
+    <string name="food_risk_transition_name" translatable="false">food_risk_transition</string>
+    <string name="store_url" translatable="false">https://play.google.com/store/apps/details?id=%s</string>
 
     <!-- Content description -->
     <string name="category_cover_content_description">Image Catégorie</string>
@@ -29,4 +29,13 @@
     <string name="suggest_food">Suggérer un élément</string>
     <string name="filter">Filtre</string>
     <string name="categories">Catégories</string>
+
+    <!-- Share -->
+    <string name="share_list_foods" formatted="false">Voici la liste des aliments que j\'ai mis de côté et que je te partage :\n
+        %s
+        Cette liste provient de l\'application Cocotte qui conseille les femmes enceintes sur leur alimentation.</string>
+    <string name="share_food_avoid">Tu sais que cet aliment est dangereux pendant la grossesse ? 🙃</string>
+    <string name="share_food_care">Tu sais qu\'il faut faire attention à cet aliment pendant la grossesse ? 🙃</string>
+    <string name="share_food_empty">Tu sais que cet aliment est autorisé pendant la grossesse ? 🙂</string>
+    <string name="share_see_more" formatted="false">Pour voir plus d\'aliments 🍉🍭🥑 : %s</string>
 </resources>

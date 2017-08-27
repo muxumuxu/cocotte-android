@@ -56,7 +56,7 @@ class FoodActivity : AppCompatActivity() {
             information.text = food.info
         }
 
-        danger.text = getString(resources.getIdentifier(food.danger, "string", packageName))
+        danger.text = getFoodDanger(this, food)
         danger.setCompoundDrawablesWithIntrinsicBounds(
                 getDrawable(resources.getIdentifier(food.danger, "drawable", packageName))
                 , null, null, null)
@@ -67,6 +67,10 @@ class FoodActivity : AppCompatActivity() {
             CompletableFromCallable {
                 CocotteDatabase.getInstance(this).foodDao().updateFood(food)
             }.subscribeOn(Schedulers.io()).subscribe()
+        }
+
+        share.setOnClickListener {
+            shareFood(this, food)
         }
     }
 }

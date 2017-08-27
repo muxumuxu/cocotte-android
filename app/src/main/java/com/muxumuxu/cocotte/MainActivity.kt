@@ -64,11 +64,11 @@ class MainActivity : AppCompatActivity() {
         }
 
         override fun getPageTitle(position: Int): CharSequence? {
-            return getString(when (position) {
-                0 -> R.string.categories
-                1 -> R.string.favorites
-                else -> 0
-            })
+            return when (position) {
+                0 -> getString(R.string.categories)
+                1 -> getString(R.string.favorites)
+                else -> null
+            }
         }
     }
 }

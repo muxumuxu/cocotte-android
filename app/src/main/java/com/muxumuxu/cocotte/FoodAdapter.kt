@@ -1,7 +1,11 @@
 package com.muxumuxu.cocotte
 
+import android.app.Activity
 import android.content.Intent
+import android.support.v4.app.ActivityOptionsCompat
+import android.support.v4.util.Pair
 import android.support.v7.widget.RecyclerView
+import android.view.View
 import android.view.ViewGroup
 import com.l4digital.fastscroll.FastScroller
 import com.muxumuxu.cocotte.data.Food
@@ -45,7 +49,13 @@ class FoodViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(parent.inflate
         name.text = food.name
 
         food_container.setOnClickListener {
-            context.startActivity(Intent(context, FoodActivity::class.java).putExtra(FoodActivity.FOOD_ID_PARAM, food.id))
+            val intent = Intent(context, FoodActivity::class.java).putExtra(FoodActivity.FOOD_ID_PARAM, food.id)
+
+            val p1 = Pair.create(name as View, context.getString(R.string.food_title_transition_name))
+            val p2 = Pair.create(risk_icon as View, context.getString(R.string.food_risk_transition_name))
+            context.startActivity(intent, ActivityOptionsCompat.
+                    makeSceneTransitionAnimation(context as Activity, p1, p2)
+                    .toBundle())
         }
     }
 }

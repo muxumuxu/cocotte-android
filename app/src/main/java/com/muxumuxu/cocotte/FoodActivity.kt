@@ -3,7 +3,6 @@ package com.muxumuxu.cocotte
 import android.graphics.PorterDuff
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import android.util.Log
 import android.view.MenuItem
 import com.muxumuxu.cocotte.data.Food
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -31,7 +30,7 @@ class FoodActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             android.R.id.home -> {
-                onBackPressed()
+                supportFinishAfterTransition()
                 return true
             }
         }

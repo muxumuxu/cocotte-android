@@ -33,13 +33,15 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif-light"
                 android:textColor="#2B2B2C"
-                android:textSize="38sp"/>
+                android:textSize="38sp"
+                android:transitionName="@string/food_title_transition_name"/>
 
             <TextView
                 android:id="@+id/danger"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="18sp"/>
+                android:textSize="18sp"
+                android:transitionName="@string/food_risk_transition_name" />
         </LinearLayout>
 
         <ImageView

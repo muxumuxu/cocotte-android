@@ -1,6 +1,14 @@
 <resources>
+    <!-- Not translatable -->
     <string name="app_name">Cocotte</string>
+    <string name="food_title_transition_name">food_title_transition</string>
+    <string name="food_risk_transition_name">food_risk_transition</string>
+
+    <!-- Content description -->
     <string name="category_cover_content_description">Image Catégorie</string>
+    <string name="risk_icon_content_description">Icône risque</string>
+
+    <!-- App -->
     <string name="all">Tous</string>
     <string name="search">Recherche</string>
     <string name="more">Plus</string>
@@ -20,9 +28,5 @@
     <string name="search_no_match">Votre recherche n\'a donné aucun résultat.</string>
     <string name="suggest_food">Suggérer un élément</string>
     <string name="filter">Filtre</string>
-    <string name="risk_icon_content_description">Icône risque</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="categories">Catégories</string>
 </resources>

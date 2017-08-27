@@ -23,7 +23,7 @@ class FavoritesFragment : Fragment() {
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        adapter = FoodAdapter()
+        adapter = FoodAdapter("favorites", null)
         foods.adapter = adapter
         foods.setEmptyView(empty_view)
 

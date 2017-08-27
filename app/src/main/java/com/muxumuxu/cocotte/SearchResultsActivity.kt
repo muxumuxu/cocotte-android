@@ -21,11 +21,14 @@ class SearchResultsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_search_results)
 
-        handleIntent(intent)
+        if (!handleIntent(intent)) {
+            finish()
+            return
+        }
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        adapter = FoodAdapter()
+        adapter = FoodAdapter("search", intent.getStringExtra(SearchManager.QUERY))
         foods.adapter = adapter
         foods.setEmptyView(empty_view)
 
@@ -63,8 +66,8 @@ class SearchResultsActivity : AppCompatActivity() {
     }
 
     // FIXME: Do search in SQL
-    private fun handleIntent(intent: Intent) {
-        if (Intent.ACTION_SEARCH == intent.action) {
+    private fun handleIntent(intent: Intent): Boolean {
+        return if (Intent.ACTION_SEARCH == intent.action) {
             val query = intent.getStringExtra(SearchManager.QUERY)
 
             CocotteDatabase.getInstance(this).foodDao().getAll()
@@ -73,6 +76,9 @@ class SearchResultsActivity : AppCompatActivity() {
                         foodList = foods.filter { it.name.contains(query, ignoreCase = true) }
                         adapter.setFoods(foodList)
                     }
+            true
+        } else {
+            false
         }
     }
 }

@@ -8,16 +8,24 @@ import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
 import com.l4digital.fastscroll.FastScroller
+import com.muxumuxu.cocotte.analytics.Analytics
+import com.muxumuxu.cocotte.analytics.Event
 import com.muxumuxu.cocotte.data.Food
 import kotlinx.android.synthetic.main.food_item.view.*
 import java.util.*
 
-class FoodAdapter : RecyclerView.Adapter<FoodViewHolder>(), FastScroller.SectionIndexer {
+class FoodAdapter(source: String, info: String?)
+    : RecyclerView.Adapter<FoodAdapter.FoodViewHolder>(), FastScroller.SectionIndexer {
 
     private var foods: List<Food>
 
+    private var source: String
+    private var info: String?
+
     init {
         foods = ArrayList()
+        this.source = source
+        this.info = info
     }
 
     fun setFoods(foods: List<Food>) {
@@ -40,22 +48,24 @@ class FoodAdapter : RecyclerView.Adapter<FoodViewHolder>(), FastScroller.Section
     override fun onBindViewHolder(holder: FoodViewHolder, position: Int) {
         return holder.bind(foods[position])
     }
-}
 
-class FoodViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(parent.inflate(R.layout.food_item)) {
-    fun bind(food: Food) = with(itemView) {
-        risk_icon.setImageResource(context.resources.getIdentifier(food.danger, "drawable", context.packageName))
-        risk_icon.contentDescription = food.danger
-        name.text = food.name
+    inner class FoodViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(parent.inflate(R.layout.food_item)) {
+        fun bind(food: Food) = with(itemView) {
+            risk_icon.setImageResource(context.resources.getIdentifier(food.danger, "drawable", context.packageName))
+            risk_icon.contentDescription = food.danger
+            name.text = food.name
 
-        food_container.setOnClickListener {
-            val intent = Intent(context, FoodActivity::class.java).putExtra(FoodActivity.FOOD_ID_PARAM, food.id)
+            food_container.setOnClickListener {
+                Analytics.trackEvent(Event.selectFood(food.name, this@FoodAdapter.source, this@FoodAdapter.info))
 
-            val p1 = Pair.create(name as View, context.getString(R.string.food_title_transition_name))
-            val p2 = Pair.create(risk_icon as View, context.getString(R.string.food_risk_transition_name))
-            context.startActivity(intent, ActivityOptionsCompat.
-                    makeSceneTransitionAnimation(context as Activity, p1, p2)
-                    .toBundle())
+                val intent = Intent(context, FoodActivity::class.java).putExtra(FoodActivity.FOOD_ID_PARAM, food.id)
+
+                val p1 = Pair.create(name as View, context.getString(R.string.food_title_transition_name))
+                val p2 = Pair.create(risk_icon as View, context.getString(R.string.food_risk_transition_name))
+                context.startActivity(intent, ActivityOptionsCompat.
+                        makeSceneTransitionAnimation(context as Activity, p1, p2)
+                        .toBundle())
+            }
         }
     }
 }

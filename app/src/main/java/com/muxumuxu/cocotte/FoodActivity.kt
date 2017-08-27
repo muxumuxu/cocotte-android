@@ -4,6 +4,8 @@ import android.graphics.PorterDuff
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
+import com.muxumuxu.cocotte.analytics.Analytics
+import com.muxumuxu.cocotte.analytics.Event
 import com.muxumuxu.cocotte.data.Food
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.internal.operators.completable.CompletableFromCallable
@@ -64,12 +66,16 @@ class FoodActivity : AppCompatActivity() {
         favorize.isSelected = food.favorite
         favorize.setOnClickListener {
             food.favorite = !food.favorite
+            Analytics.trackEvent(Event.favorize(food.name, food.favorite))
+
             CompletableFromCallable {
                 CocotteDatabase.getInstance(this).foodDao().updateFood(food)
             }.subscribeOn(Schedulers.io()).subscribe()
         }
 
         share.setOnClickListener {
+            Analytics.trackEvent(Event.share(food.name, category.name))
+
             shareFood(this, food)
         }
     }

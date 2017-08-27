@@ -25,7 +25,7 @@ class CategoryActivity : AppCompatActivity() {
 
         this.id = intent.getIntExtra(CATEGORY_ID_PARAM, 0)
 
-        adapter = FoodAdapter()
+        adapter = FoodAdapter("category", null)
         foods.adapter = adapter
 
         getFoods().subscribe { foodList ->

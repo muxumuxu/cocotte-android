@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "22837129674",
+    "firebase_url": "https://cocotte-927e8.firebaseio.com",
+    "project_id": "cocotte-927e8",
+    "storage_bucket": "cocotte-927e8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:22837129674:android:f60d73fe85f42dbc",
+        "android_client_info": {
+          "package_name": "com.muxumuxu.cocotte"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "22837129674-jcp5297it4a5sbekbuaiqheos8i8dggc.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.muxumuxu.cocotte",
+            "certificate_hash": "b855b3b8f2bf474d041e77f24252eb4f67029b21"
+          }
+        },
+        {
+          "client_id": "22837129674-tv314nephlg9rlgb57qmssqnl835v8o5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAc0r4b5eT1WrGBDX39X6Tvzw6wtkVIJaA"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "22837129674-tv314nephlg9rlgb57qmssqnl835v8o5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

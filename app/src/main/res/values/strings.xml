@@ -3,6 +3,7 @@
     <string name="food_title_transition_name" translatable="false">food_title_transition</string>
     <string name="food_risk_transition_name" translatable="false">food_risk_transition</string>
     <string name="store_url" translatable="false">https://play.google.com/store/apps/details?id=%s</string>
+    <string name="gcm_sender_id" translatable="false">22837129674</string>
 
     <!-- Content description -->
     <string name="category_cover_content_description">Image Catégorie</string>

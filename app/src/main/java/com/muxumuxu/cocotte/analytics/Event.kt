@@ -8,11 +8,10 @@ open class Event(val name: String, val params: JSONObject) {
                 Event("SelectCategory", JSONObject().put("name", categoryName))
 
         fun selectFood(foodName: String, source: String, search: String?) =
-                Event("SelectFood",
-                        JSONObject()
-                                .put("name", foodName)
-                                .put("from", source)
-                                .put("search", search))
+                Event("SelectFood", JSONObject()
+                        .put("name", foodName)
+                        .put("from", source)
+                        .put("search", search))
 
         fun favorize(foodName: String, add: Boolean) =
                 Event(if (add) "AddFav" else "RemoveFav", JSONObject().put("name", foodName))

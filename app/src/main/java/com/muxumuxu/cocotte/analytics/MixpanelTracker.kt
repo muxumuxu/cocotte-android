@@ -1,9 +1,12 @@
 package com.muxumuxu.cocotte.analytics
 
 import android.content.Context
+import com.google.android.gms.iid.InstanceID
 import com.mixpanel.android.mpmetrics.MixpanelAPI
 import com.muxumuxu.cocotte.BuildConfig
+import com.muxumuxu.cocotte.R
 
+// TODO: Lifecycle event to call #{tracker.flush}
 class MixpanelTracker(context: Context)
     : AbstractTracker() {
 
@@ -15,6 +18,10 @@ class MixpanelTracker(context: Context)
 
     init {
         tracker = MixpanelAPI.getInstance(context, MixpanelTracker.TOKEN)
+        val people = tracker.people
+
+        people.identify(InstanceID.getInstance(context).id)
+        people.initPushHandling(context.getString(R.string.gcm_sender_id))
     }
 
     override fun acceptEvent(event: Event): Boolean {

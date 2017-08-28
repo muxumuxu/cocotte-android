@@ -6,6 +6,17 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <uses-permission android:name="android.permission.BLUETOOTH"/>
 
+    <!-- Push -->
+    <permission
+        android:name="com.muxumuxu.cocotte.permission.C2D_MESSAGE"
+        android:protectionLevel="signature"/>
+
+    <uses-permission android:name="com.muxumuxu.cocotte.permission.C2D_MESSAGE"/>
+
+    <uses-permission android:name="android.permission.GET_ACCOUNTS"/>
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE"/>
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
+
     <application
         android:name=".CocotteApplication"
         android:allowBackup="true"
@@ -51,6 +62,21 @@
             android:label="@string/more"
             android:parentActivityName=".MainActivity"
             android:screenOrientation="portrait"/>
+
+        <meta-data
+            android:name="firebase_analytics_collection_deactivated"
+            android:value="true"/>
+
+        <receiver
+            android:name="com.mixpanel.android.mpmetrics.GCMReceiver"
+            android:permission="com.google.android.c2dm.permission.SEND">
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE"/>
+                <action android:name="com.google.android.c2dm.intent.REGISTRATION"/>
+
+                <category android:name="com.muxumuxu.cocotte"/>
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

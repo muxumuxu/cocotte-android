@@ -58,6 +58,8 @@ dependencies {
 
     implementation "com.android.support.constraint:constraint-layout:$constraintLayoutVersion"
 
+    implementation "com.google.android.gms:play-services-gcm:11.2.0"
+
     implementation "android.arch.persistence.room:runtime:$roomVersion"
     implementation "android.arch.persistence.room:rxjava2:$roomVersion"
     kapt "android.arch.persistence.room:compiler:$roomVersion"
@@ -84,3 +86,5 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.0'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.0'
 }
+
+apply plugin: 'com.google.gms.google-services'

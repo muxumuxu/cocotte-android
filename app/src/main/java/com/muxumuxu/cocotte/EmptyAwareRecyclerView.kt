@@ -35,18 +35,16 @@ class EmptyAwareRecyclerView : RecyclerView {
     }
 
     override fun setAdapter(adapter: RecyclerView.Adapter<*>?) {
-        if (getAdapter() != null) {
-            getAdapter().unregisterAdapterDataObserver(mDataObserver)
-        }
+        getAdapter()?.unregisterAdapterDataObserver(mDataObserver)
         adapter?.registerAdapterDataObserver(mDataObserver)
         super.setAdapter(adapter)
         updateEmptyView()
     }
 
-    private fun updateEmptyView() {
-        if (mEmptyView != null && adapter != null) {
+    fun updateEmptyView() {
+        if (adapter != null) {
             val showEmptyView = adapter.itemCount == 0
-            mEmptyView!!.visibility = if (showEmptyView) View.VISIBLE else View.GONE
+            mEmptyView?.visibility = if (showEmptyView) View.VISIBLE else View.GONE
             visibility = if (showEmptyView) View.GONE else View.VISIBLE
         }
     }

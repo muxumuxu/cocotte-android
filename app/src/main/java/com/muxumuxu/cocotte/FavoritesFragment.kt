@@ -24,8 +24,8 @@ class FavoritesFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         adapter = FoodAdapter("favorites", null)
-        foods.adapter = adapter
         foods.setEmptyView(empty_view)
+        foods.adapter = adapter
 
         CocotteDatabase.getInstance(context).foodDao()
                 .getFavorites()
@@ -33,6 +33,8 @@ class FavoritesFragment : Fragment() {
                 .subscribe { foodList ->
                     this.foodList = foodList
                     adapter.setFoods(foodList)
+                    // FIXME: The observer conflicts with the DiffUtil, so we have to update manually
+                    foods.updateEmptyView()
                 }
 
         share.setOnClickListener {

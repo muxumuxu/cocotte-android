@@ -38,4 +38,13 @@
     <string name="share_food_care">Tu sais qu\'il faut faire attention à cet aliment pendant la grossesse ? 🙃</string>
     <string name="share_food_empty">Tu sais que cet aliment est autorisé pendant la grossesse ? 🙂</string>
     <string name="share_see_more" formatted="false">Pour voir plus d\'aliments 🍉🍭🥑 : %s</string>
+
+    <!-- More -->
+    <string name="support">Support</string>
+    <string name="about">À propos</string>
+    <string name="contact_us">Nous contacter</string>
+    <string name="rate_app">Noter l\'application</string>
+    <string name="share_app">Partager l\'application</string>
+    <string name="made_by">Made with 💚 by Cocotte.</string>
+    <string name="version">Ma version de Cocotte - %s (%s)</string>
 </resources>

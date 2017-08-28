@@ -7,11 +7,13 @@ import com.muxumuxu.cocotte.analytics.Analytics
 import com.muxumuxu.cocotte.analytics.MixpanelTracker
 import io.fabric.sdk.android.Fabric
 
-class CocotteAplication : Application() {
+class CocotteApplication : Application() {
     override fun onCreate() {
         super.onCreate()
 
-        Fabric.with(this, Crashlytics())
+        if (!BuildConfig.DEBUG) {
+            Fabric.with(this, Crashlytics())
+        }
 
         Analytics.init(AmplitudeTracker(this), MixpanelTracker(this))
     }

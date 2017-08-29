@@ -13,6 +13,8 @@ class AmplitudeTracker(context: Context)
 
     init {
         Amplitude.getInstance().initialize(context, AmplitudeTracker.TOKEN)
+                .trackSessionEvents(true)
+                .enableLocationListening()
     }
 
     override fun acceptEvent(event: Event): Boolean {

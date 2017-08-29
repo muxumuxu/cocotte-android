@@ -32,11 +32,13 @@
             android:textSize="20sp"/>
     </LinearLayout>
 
-    <com.muxumuxu.cocotte.EmptyAwareRecyclerView
+    <com.l4digital.fastscroll.FastScrollRecyclerView
         android:id="@+id/foods"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="gone"
+        android:clipToPadding="false"
+        app:bubbleColor="@color/colorPrimary"
+        app:handleColor="@color/colorPrimaryDark"
         app:layoutManager="LinearLayoutManager"/>
 
     <android.support.design.widget.FloatingActionButton

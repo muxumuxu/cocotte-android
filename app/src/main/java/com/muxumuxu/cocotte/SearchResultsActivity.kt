@@ -6,9 +6,11 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.widget.Toast
 import com.muxumuxu.cocotte.data.Food
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.activity_search_results.*
 
 class SearchResultsActivity : AppCompatActivity() {
@@ -30,7 +32,6 @@ class SearchResultsActivity : AppCompatActivity() {
 
         adapter = FoodAdapter("search", intent.getStringExtra(SearchManager.QUERY))
         foods.adapter = adapter
-        foods.setEmptyView(empty_view)
 
         suggest.setOnClickListener {
             Toast.makeText(this, "TODO", Toast.LENGTH_LONG).show()
@@ -52,7 +53,7 @@ class SearchResultsActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.all, R.id.empty, R.id.avoid, R.id.care -> {
-                adapter.setFoods(when (item.itemId) {
+                updateFoods(when (item.itemId) {
                     R.id.empty -> foodList.filter { it.danger == "empty" }
                     R.id.care -> foodList.filter { it.danger == "care" }
                     R.id.avoid -> foodList.filter { it.danger == "avoid" }
@@ -65,20 +66,31 @@ class SearchResultsActivity : AppCompatActivity() {
         }
     }
 
+    lateinit private var disposable: Disposable
+
     // FIXME: Do search in SQL
     private fun handleIntent(intent: Intent): Boolean {
         return if (Intent.ACTION_SEARCH == intent.action) {
             val query = intent.getStringExtra(SearchManager.QUERY)
 
-            CocotteDatabase.getInstance(this).foodDao().getAll()
+            disposable = CocotteDatabase.getInstance(this).foodDao().getAll()
                     .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe { foods ->
-                        foodList = foods.filter { it.name.contains(query, ignoreCase = true) }
-                        adapter.setFoods(foodList)
+                    .subscribe { foodList ->
+                        this.foodList = foodList.filter { it.name.contains(query, ignoreCase = true) }
+                        updateFoods(this.foodList)
+                        disposable.dispose()
                     }
             true
         } else {
             false
         }
+    }
+
+    private fun updateFoods(foodList: List<Food>) {
+        adapter.setFoods(foodList)
+
+        val showEmpty = foodList.isEmpty()
+        foods.visibility = if (!showEmpty) View.VISIBLE else View.GONE
+        empty_view.visibility = if (showEmpty) View.VISIBLE else View.GONE
     }
 }

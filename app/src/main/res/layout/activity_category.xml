@@ -1,18 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<com.l4digital.fastscroll.FastScrollRecyclerView
+    android:id="@+id/foods"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.muxumuxu.cocotte.CategoryActivity">
-
-    <com.l4digital.fastscroll.FastScrollRecyclerView
-        android:id="@+id/foods"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:clipToPadding="false"
-        app:bubbleColor="@color/colorPrimary"
-        app:handleColor="@color/colorPrimaryDark"
-        app:layoutManager="LinearLayoutManager"/>
-</RelativeLayout>
+    android:clipToPadding="false"
+    app:bubbleColor="@color/colorPrimary"
+    app:handleColor="@color/colorPrimaryDark"
+    app:layoutManager="LinearLayoutManager"/>

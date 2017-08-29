@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.muxumuxu.cocotte.data.Food
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.fragment_favorites.*
 
 class FavoritesFragment : Fragment() {
@@ -14,6 +15,8 @@ class FavoritesFragment : Fragment() {
     lateinit private var adapter: FoodAdapter
 
     lateinit private var foodList: List<Food>
+
+    lateinit private var disposable: Disposable
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -24,21 +27,31 @@ class FavoritesFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         adapter = FoodAdapter("favorites", null)
-        foods.setEmptyView(empty_view)
         foods.adapter = adapter
 
-        CocotteDatabase.getInstance(context).foodDao()
+        disposable = CocotteDatabase.getInstance(context).foodDao()
                 .getFavorites()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe { foodList ->
                     this.foodList = foodList
-                    adapter.setFoods(foodList)
-                    // FIXME: The observer conflicts with the DiffUtil, so we have to update manually
-                    foods.updateEmptyView()
+                    updateFoods(this.foodList)
                 }
 
         share.setOnClickListener {
             shareFoods(context, this.foodList)
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        disposable.dispose()
+    }
+
+    private fun updateFoods(foodList: List<Food>) {
+        adapter.setFoods(foodList)
+
+        val showEmpty = foodList.isEmpty()
+        foods.visibility = if (!showEmpty) View.VISIBLE else View.GONE
+        empty_view.visibility = if (showEmpty) View.VISIBLE else View.GONE
     }
 }

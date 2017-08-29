@@ -15,7 +15,7 @@ android {
         applicationId "com.muxumuxu.cocotte"
         minSdkVersion 21
         targetSdkVersion 26
-        versionCode 2000
+        versionCode 2001
         versionName "0.2.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }

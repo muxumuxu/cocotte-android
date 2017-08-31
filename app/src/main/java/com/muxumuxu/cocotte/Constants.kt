@@ -8,3 +8,5 @@ val colors = arrayOf("#484291", "#FFDB3A", "#007CFF", "#9F57B7", "#99D22A", "#FF
 fun getCategoryColor(index: Int): Int {
     return Color.parseColor(colors[index])
 }
+
+val contactEmail = "bonjour@cocotte-app.com"

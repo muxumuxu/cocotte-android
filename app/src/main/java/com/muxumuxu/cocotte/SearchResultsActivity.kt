@@ -34,8 +34,12 @@ class SearchResultsActivity : AppCompatActivity() {
         foods.adapter = adapter
 
         suggest.setOnClickListener {
-            Toast.makeText(this, "TODO", Toast.LENGTH_LONG).show()
-            // TODO: Suggest food
+            val intent = Intent(Intent.ACTION_SEND)
+                    .putExtra(Intent.EXTRA_EMAIL, contactEmail)
+                    .putExtra(Intent.EXTRA_SUBJECT, getString(R.string.suggest_food_subject))
+                    .setType("text/html")
+
+            startActivity(intent)
         }
     }
 

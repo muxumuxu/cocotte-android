@@ -28,6 +28,7 @@
     <string name="results">Résultats</string>
     <string name="search_no_match">Votre recherche n\'a donné aucun résultat.</string>
     <string name="suggest_food">Suggérer un élément</string>
+    <string name="suggest_food_subject">[Suggestion Aliment]</string>
     <string name="filter">Filtre</string>
     <string name="categories">Catégories</string>
 
@@ -48,4 +49,9 @@
     <string name="share_app">Partager l\'application</string>
     <string name="made_by">Made with 💚 by Cocotte.</string>
     <string name="version">Ma version de Cocotte - %s (%s)</string>
+    <string name="invalid_store_url">Impossible d\'ouvrir le Play Store.</string>
+    <string name="share_app_subject">Fini les questions sur l’alimentation pendant la grossesse ☺️ 🍓</string>
+    <string name="share_app_title">Partager l\'application :</string>
+    <string name="send_email_title">Envoyer l\'e-mail :</string>
+    <string name="contact_subject">[Retour Cocotte]</string>
 </resources>

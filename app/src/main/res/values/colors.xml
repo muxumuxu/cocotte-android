@@ -9,4 +9,10 @@
 
     <color name="text_black">#DE000000</color>
     <color name="text_gray">#888</color>
+
+    <color name="avoid">#F64848</color>
+    <color name="care">#FDAE00</color>
+    <color name="empty">#99D22A</color>
+
+    <color name="link">#3d5afe</color>
 </resources>

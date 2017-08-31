@@ -2,7 +2,9 @@ package com.muxumuxu.cocotte
 
 import android.graphics.PorterDuff
 import android.os.Bundle
+import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import android.view.MenuItem
 import com.muxumuxu.cocotte.analytics.Analytics
 import com.muxumuxu.cocotte.analytics.Event
@@ -45,6 +47,7 @@ class FoodActivity : AppCompatActivity() {
 
         title = food.name
 
+        Log.v("Cocotte", "Food = " + food)
         cover.setImageResource(resources.getIdentifier(category.image, "drawable", packageName))
         cover.background.setColorFilter(getCategoryColor(category.order - 1), PorterDuff.Mode.SRC_ATOP)
 
@@ -52,6 +55,12 @@ class FoodActivity : AppCompatActivity() {
 
         if (food.risk != null) {
             risk.text = food.risk.name
+            if (food.risk.url != null) {
+                risk.setTextColor(ContextCompat.getColor(this, R.color.link))
+                risk.setOnClickListener {
+                    CustomTabsUtils.openCustomTab(this, food.risk.url)
+                }
+            }
         }
 
         if (!food.info.isNullOrEmpty()) {
@@ -59,6 +68,8 @@ class FoodActivity : AppCompatActivity() {
         }
 
         danger.text = getFoodDanger(this, food)
+        danger.setTextColor(ContextCompat.getColor(this,
+                resources.getIdentifier(food.danger, "color", packageName)))
         danger.setCompoundDrawablesWithIntrinsicBounds(
                 getDrawable(resources.getIdentifier(food.danger, "drawable", packageName))
                 , null, null, null)

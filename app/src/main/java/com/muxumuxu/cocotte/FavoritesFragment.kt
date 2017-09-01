@@ -38,7 +38,7 @@ class FavoritesFragment : Fragment() {
                 }
 
         share.setOnClickListener {
-            shareFoods(context, this.foodList)
+            if (this.foodList.isEmpty()) shareApp(context) else shareFoods(context, this.foodList)
         }
     }
 

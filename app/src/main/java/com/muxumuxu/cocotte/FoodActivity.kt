@@ -47,7 +47,6 @@ class FoodActivity : AppCompatActivity() {
 
         title = food.name
 
-        Log.v("Cocotte", "Food = " + food)
         cover.setImageResource(resources.getIdentifier(category.image, "drawable", packageName))
         cover.background.setColorFilter(getCategoryColor(category.order - 1), PorterDuff.Mode.SRC_ATOP)
 

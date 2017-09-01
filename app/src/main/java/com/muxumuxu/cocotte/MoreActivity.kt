@@ -18,7 +18,7 @@ class MoreActivity : AppCompatActivity() {
         // FIXME: Some externalisation with ShareHolder maybe maybelline
         rate.setOnClickListener {
             try {
-                startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(getStoreUrl())))
+                startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(getStoreUrl(this))))
             } catch (e: ActivityNotFoundException) {
                 Toast.makeText(this, R.string.invalid_store_url, Toast.LENGTH_SHORT).show()
             }
@@ -34,16 +34,7 @@ class MoreActivity : AppCompatActivity() {
         }
 
         share.setOnClickListener {
-            val intent = Intent(Intent.ACTION_SEND)
-                    .putExtra(Intent.EXTRA_SUBJECT, getString(R.string.share_app_subject))
-                    .putExtra(Intent.EXTRA_TEXT, getStoreUrl())
-                    .setType("text/plain")
-
-            startActivity(intent)
+            shareApp(this)
         }
-    }
-
-    private fun getStoreUrl(): String {
-        return getString(R.string.store_url, packageName)
     }
 }

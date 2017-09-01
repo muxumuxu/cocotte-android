@@ -38,6 +38,19 @@ fun shareFood(context: Context, food: Food) {
     share(context, message)
 }
 
+fun shareApp(context: Context) {
+    val intent = Intent(Intent.ACTION_SEND)
+            .putExtra(Intent.EXTRA_SUBJECT, context.getString(R.string.share_app_subject))
+            .putExtra(Intent.EXTRA_TEXT, getStoreUrl(context))
+            .setType("text/plain")
+
+    context.startActivity(intent)
+}
+
+fun getStoreUrl(context: Context): String {
+    return context.getString(R.string.store_url, context.packageName)
+}
+
 fun getFoodDanger(context: Context, food: Food): String {
     return context.getString(context.resources.getIdentifier(food.danger, "string", context.packageName))
 }

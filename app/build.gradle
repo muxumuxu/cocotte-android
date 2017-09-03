@@ -41,7 +41,7 @@ androidExtensions {
 }
 
 ext {
-    supportLibraryVersion = '26.0.1'
+    supportLibraryVersion = '26.0.2'
     constraintLayoutVersion = '1.0.2'
     okHttpVersion = '2.3.0'
     roomVersion = '1.0.0-alpha9'
@@ -56,7 +56,7 @@ dependencies {
     implementation "com.android.support:support-v4:$supportLibraryVersion"
     implementation "com.android.support:design:$supportLibraryVersion"
     implementation "com.android.support:recyclerview-v7:$supportLibraryVersion"
-    compile "com.android.support:customtabs:$supportLibraryVersion"
+    implementation "com.android.support:customtabs:$supportLibraryVersion"
 
     implementation "com.android.support.constraint:constraint-layout:$constraintLayoutVersion"
 
@@ -85,8 +85,8 @@ dependencies {
     }
 
     testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'com.android.support.test:runner:1.0.0'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.0'
+    androidTestImplementation 'com.android.support.test:runner:1.0.1'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
 }
 
 apply plugin: 'com.google.gms.google-services'

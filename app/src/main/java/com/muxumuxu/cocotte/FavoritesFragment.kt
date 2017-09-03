@@ -32,8 +32,8 @@ class FavoritesFragment : Fragment() {
         disposable = CocotteDatabase.getInstance(context).foodDao()
                 .getFavorites()
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe { foodList ->
-                    this.foodList = foodList
+                .subscribe {
+                    this.foodList = it
                     updateFoods(this.foodList)
                 }
 

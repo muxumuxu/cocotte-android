@@ -28,8 +28,8 @@ class CategoriesFragment : Fragment() {
 
         CocotteDatabase.getInstance(context).foodDao().getAll()
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe { foodList ->
-                    adapter.setCategories(foodList.map { it.category }.distinct().sortedBy { it.order })
+                .subscribe {
+                    adapter.setCategories(it.map { it.category }.distinct().sortedBy { it.order })
                 }
     }
 }

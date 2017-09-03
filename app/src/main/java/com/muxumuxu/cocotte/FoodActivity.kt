@@ -4,7 +4,6 @@ import android.graphics.PorterDuff
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
-import android.util.Log
 import android.view.MenuItem
 import com.muxumuxu.cocotte.analytics.Analytics
 import com.muxumuxu.cocotte.analytics.Event

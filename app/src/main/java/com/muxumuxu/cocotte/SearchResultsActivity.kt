@@ -7,7 +7,6 @@ import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.Toast
 import com.muxumuxu.cocotte.data.Food
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
@@ -23,10 +22,7 @@ class SearchResultsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_search_results)
 
-        if (!handleIntent(intent)) {
-            finish()
-            return
-        }
+        handleIntent(intent)
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
@@ -73,20 +69,17 @@ class SearchResultsActivity : AppCompatActivity() {
     lateinit private var disposable: Disposable
 
     // FIXME: Do search in SQL
-    private fun handleIntent(intent: Intent): Boolean {
-        return if (Intent.ACTION_SEARCH == intent.action) {
+    private fun handleIntent(intent: Intent) {
+        if (Intent.ACTION_SEARCH == intent.action) {
             val query = intent.getStringExtra(SearchManager.QUERY)
 
             disposable = CocotteDatabase.getInstance(this).foodDao().getAll()
                     .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe { foodList ->
-                        this.foodList = foodList.filter { it.name.contains(query, ignoreCase = true) }
+                    .subscribe {
+                        this.foodList = it.filter { it.name.contains(query, ignoreCase = true) }
                         updateFoods(this.foodList)
                         disposable.dispose()
                     }
-            true
-        } else {
-            false
         }
     }
 

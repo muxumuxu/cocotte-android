@@ -43,7 +43,8 @@
         <activity
             android:name=".CategoryActivity"/>
         <activity
-            android:name=".FoodActivity"/>
+            android:name=".FoodActivity"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".SearchResultsActivity"
             android:label="@string/results"

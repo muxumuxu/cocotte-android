@@ -14,9 +14,9 @@ import kotlinx.android.synthetic.main.activity_search_results.*
 
 class SearchResultsActivity : AppCompatActivity() {
 
-    lateinit private var foodList: List<Food>
+    private lateinit var foodList: List<Food>
 
-    lateinit private var adapter: FoodAdapter
+    private lateinit var adapter: FoodAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -66,7 +66,7 @@ class SearchResultsActivity : AppCompatActivity() {
         }
     }
 
-    lateinit private var disposable: Disposable
+    private lateinit var disposable: Disposable
 
     // FIXME: Do search in SQL
     private fun handleIntent(intent: Intent) {

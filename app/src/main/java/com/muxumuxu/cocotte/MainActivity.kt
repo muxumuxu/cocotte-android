@@ -4,9 +4,6 @@ import android.app.SearchManager
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentManager
-import android.support.v4.app.FragmentPagerAdapter
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.SearchView
 import android.view.Menu
@@ -18,13 +15,12 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
-    private val NUM_ITEMS = 2
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.activity_main)
 
+        // TODO: Get from cache and network at same time
         CocotteDatabase.getInstance(this).foodDao().getAll()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe { foodList ->
@@ -37,7 +33,7 @@ class MainActivity : AppCompatActivity() {
 
         setSupportActionBar(toolbar)
 
-        pager.adapter = MainAdapter(supportFragmentManager)
+        pager.adapter = MainActivityFragmentAdapter(this, supportFragmentManager)
         tabs.setupWithViewPager(pager)
     }
 
@@ -58,29 +54,5 @@ class MainActivity : AppCompatActivity() {
             }
         }
         return super.onOptionsItemSelected(item)
-    }
-
-    inner class MainAdapter(fragmentManager: FragmentManager)
-        : FragmentPagerAdapter(fragmentManager) {
-
-        override fun getCount(): Int {
-            return NUM_ITEMS
-        }
-
-        override fun getItem(position: Int): Fragment? {
-            return (when (position) {
-                0 -> CategoriesFragment()
-                1 -> FavoritesFragment()
-                else -> null
-            })
-        }
-
-        override fun getPageTitle(position: Int): CharSequence? {
-            return when (position) {
-                0 -> getString(R.string.categories)
-                1 -> getString(R.string.favorites)
-                else -> null
-            }
-        }
     }
 }

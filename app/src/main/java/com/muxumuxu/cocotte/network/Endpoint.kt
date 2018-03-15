@@ -9,7 +9,7 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 
-private val BASE_URL = "https://pregnant-foods.herokuapp.com"
+private const val BASE_URL = "https://pregnant-foods.herokuapp.com"
 
 interface Endpoint {
     @GET("/foods.json")

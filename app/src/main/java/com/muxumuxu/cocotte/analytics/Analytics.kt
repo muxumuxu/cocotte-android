@@ -2,7 +2,7 @@ package com.muxumuxu.cocotte.analytics
 
 object Analytics {
 
-    lateinit private var trackers: Array<out AbstractTracker>
+    private lateinit var trackers: Array<out AbstractTracker>
 
     fun trackEvent(event: Event) {
         trackers.forEach { it.trackEvent(event) }

@@ -12,11 +12,11 @@ import kotlinx.android.synthetic.main.fragment_favorites.*
 
 class FavoritesFragment : Fragment() {
 
-    lateinit private var adapter: FoodAdapter
+    private lateinit var adapter: FoodAdapter
 
-    lateinit private var foodList: List<Food>
+    private lateinit var foodList: List<Food>
 
-    lateinit private var disposable: Disposable
+    private lateinit var disposable: Disposable
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return LayoutInflater.from(context).inflate(R.layout.fragment_favorites, container, false)

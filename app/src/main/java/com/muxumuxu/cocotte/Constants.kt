@@ -9,4 +9,4 @@ fun getCategoryColor(index: Int): Int {
     return Color.parseColor(colors[index])
 }
 
-val contactEmail = "bonjour@cocotte-app.com"
+const val contactEmail = "bonjour@cocotte-app.com"

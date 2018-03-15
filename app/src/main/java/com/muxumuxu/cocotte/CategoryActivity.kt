@@ -11,13 +11,13 @@ import kotlinx.android.synthetic.main.activity_category.*
 
 class CategoryActivity : AppCompatActivity() {
     companion object {
-        val CATEGORY_ID_PARAM = "category_id"
-        val CATEGORY_NAME_PARAM = "category_name"
+        const val CATEGORY_ID_PARAM = "category_id"
+        const val CATEGORY_NAME_PARAM = "category_name"
     }
 
-    private var id: Int? = null
+    private var id: Int = 0
 
-    lateinit private var adapter: FoodAdapter
+    private lateinit var adapter: FoodAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -66,7 +66,7 @@ class CategoryActivity : AppCompatActivity() {
 
     private fun getFoods(): Flowable<List<Food>> {
         return CocotteDatabase.getInstance(this).foodDao()
-                .getFoodFromCategory(this.id!!)
+                .getFoodFromCategory(id)
                 .observeOn(AndroidSchedulers.mainThread())
     }
 }

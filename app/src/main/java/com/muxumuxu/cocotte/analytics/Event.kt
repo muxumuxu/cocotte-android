@@ -2,6 +2,7 @@ package com.muxumuxu.cocotte.analytics
 
 import org.json.JSONObject
 
+// TODO: Move to sealed class with inheritance
 open class Event(val name: String, val params: JSONObject) {
     companion object {
         fun selectCategory(categoryName: String) =

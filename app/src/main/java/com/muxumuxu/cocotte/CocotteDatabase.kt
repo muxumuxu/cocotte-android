@@ -7,7 +7,7 @@ import android.content.Context
 import com.muxumuxu.cocotte.data.Food
 
 // TODO: Make a better DB (Not only one table)
-@Database(entities = arrayOf(Food::class), version = 1)
+@Database(entities = [(Food::class)], version = 1)
 abstract class CocotteDatabase : RoomDatabase() {
     abstract fun foodDao(): FoodDao
 

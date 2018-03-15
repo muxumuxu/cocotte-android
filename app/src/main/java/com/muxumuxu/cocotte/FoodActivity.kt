@@ -15,7 +15,7 @@ import kotlinx.android.synthetic.main.activity_food.*
 
 class FoodActivity : AppCompatActivity() {
     companion object {
-        val FOOD_ID_PARAM = "food_id"
+        const val FOOD_ID_PARAM = "food_id"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

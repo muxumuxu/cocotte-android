@@ -12,7 +12,7 @@ import kotlinx.android.synthetic.main.fragment_categories.*
 
 class CategoriesFragment : Fragment() {
 
-    lateinit private var adapter: CategoriesAdapter
+    private lateinit var adapter: CategoriesAdapter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {

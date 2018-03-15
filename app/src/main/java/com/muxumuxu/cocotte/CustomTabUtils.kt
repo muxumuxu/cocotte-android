@@ -1,6 +1,5 @@
 package com.muxumuxu.cocotte
 
-
 import android.content.Context
 import android.net.Uri
 import android.support.customtabs.CustomTabsIntent

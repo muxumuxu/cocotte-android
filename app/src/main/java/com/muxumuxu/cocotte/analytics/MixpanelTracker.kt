@@ -18,10 +18,10 @@ class MixpanelTracker(context: Context)
 
     init {
         tracker = MixpanelAPI.getInstance(context, MixpanelTracker.TOKEN)
-        val people = tracker.people
-
-        people.identify(InstanceID.getInstance(context).id)
-        people.initPushHandling(context.getString(R.string.gcm_sender_id))
+        tracker.people.let {
+            it.identify(InstanceID.getInstance(context).id)
+            it.initPushHandling(context.getString(R.string.gcm_sender_id))
+        }
     }
 
     override fun acceptEvent(event: Event): Boolean {

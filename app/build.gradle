@@ -1,20 +1,21 @@
-apply plugin: 'com.android.application'
+apply plugin: "com.android.application"
+apply plugin: "kotlin-android"
+apply plugin: "kotlin-android-extensions"
+apply plugin: "kotlin-kapt"
 
-apply plugin: 'kotlin-android'
+apply plugin: "io.fabric"
 
-apply plugin: 'kotlin-android-extensions'
-
-apply plugin: 'kotlin-kapt'
-
-apply plugin: 'io.fabric'
+androidExtensions {
+    experimental = true
+}
 
 android {
-    compileSdkVersion 26
-    buildToolsVersion "26.0.1"
+    compileSdkVersion 27
+    buildToolsVersion "27.0.3"
     defaultConfig {
         applicationId "com.muxumuxu.cocotte"
         minSdkVersion 21
-        targetSdkVersion 26
+        targetSdkVersion 27
         versionCode 100000
         versionName "1.0.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -36,57 +37,46 @@ android {
     }
 }
 
-androidExtensions {
-    experimental = true
-}
-
-ext {
-    supportLibraryVersion = '26.0.2'
-    constraintLayoutVersion = '1.0.2'
-    retrofitVersion = '2.3.0'
-    roomVersion = '1.0.0-alpha9'
-}
-
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:${Versions.kotlin}"
 
-    implementation "com.android.support:appcompat-v7:$supportLibraryVersion"
-    implementation "com.android.support:support-v4:$supportLibraryVersion"
-    implementation "com.android.support:design:$supportLibraryVersion"
-    implementation "com.android.support:recyclerview-v7:$supportLibraryVersion"
-    implementation "com.android.support:customtabs:$supportLibraryVersion"
+    implementation "com.android.support:appcompat-v7:${Versions.supportLibrary}"
+    implementation "com.android.support:support-v4:${Versions.supportLibrary}"
+    implementation "com.android.support:design:${Versions.supportLibrary}"
+    implementation "com.android.support:recyclerview-v7:${Versions.supportLibrary}"
+    implementation "com.android.support:customtabs:${Versions.supportLibrary}"
 
-    implementation "com.android.support.constraint:constraint-layout:$constraintLayoutVersion"
+    implementation "com.android.support.constraint:constraint-layout:${Versions.constraintLayout}"
 
-    implementation "com.google.android.gms:play-services-gcm:11.2.0"
+    implementation "com.google.android.gms:play-services-gcm:11.8.0"
 
-    implementation "android.arch.persistence.room:runtime:$roomVersion"
-    implementation "android.arch.persistence.room:rxjava2:$roomVersion"
-    kapt "android.arch.persistence.room:compiler:$roomVersion"
+    implementation "android.arch.persistence.room:runtime:${Versions.room}"
+    implementation "android.arch.persistence.room:rxjava2:${Versions.room}"
+    kapt "android.arch.persistence.room:compiler:${Versions.room}"
 
-    implementation "io.reactivex.rxjava2:rxjava:2.1.2"
-    implementation "io.reactivex.rxjava2:rxandroid:2.0.1"
+    implementation "io.reactivex.rxjava2:rxjava:2.1.9"
+    implementation "io.reactivex.rxjava2:rxandroid:2.0.2"
 
-    implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
-    implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
-    implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofitVersion"
+    implementation "com.squareup.retrofit2:retrofit:${Versions.retrofit}"
+    implementation "com.squareup.retrofit2:converter-gson:${Versions.retrofit}"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:${Versions.retrofit}"
 
-    implementation('com.l4digital.fastscroll:fastscroll:1.0.4') {
+    implementation("com.l4digital.fastscroll:fastscroll:1.0.4") {
         exclude group: 'com.android.support', module: '*'
     }
 
     implementation "com.mixpanel.android:mixpanel-android:5.1.4"
     implementation "com.amplitude:android-sdk:2.14.1"
 
-    implementation('com.crashlytics.sdk.android:crashlytics:2.6.8@aar') {
+    implementation('com.crashlytics.sdk.android:crashlytics:2.9.1@aar') {
         transitive = true
     }
 
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'com.android.support.test:runner:1.0.1'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+    testImplementation "junit:junit:4.12"
+    androidTestImplementation "com.android.support.test:runner:1.0.1"
+    androidTestImplementation "com.android.support.test.espresso:espresso-core:3.0.1"
 }
 
-apply plugin: 'com.google.gms.google-services'
+apply plugin: "com.google.gms.google-services"

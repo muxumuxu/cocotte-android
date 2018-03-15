@@ -19,14 +19,14 @@ class CategoriesFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_categories, container, false)
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         adapter = CategoriesAdapter()
         categories.adapter = adapter
         categories.layoutManager = GridLayoutManager(context, 2)
 
-        CocotteDatabase.getInstance(context).foodDao().getAll()
+        CocotteDatabase.getInstance(context!!).foodDao().getAll()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe {
                     adapter.setCategories(it.map { it.category }.distinct().sortedBy { it.order })

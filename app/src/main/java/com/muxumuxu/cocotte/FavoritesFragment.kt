@@ -18,18 +18,17 @@ class FavoritesFragment : Fragment() {
 
     lateinit private var disposable: Disposable
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return LayoutInflater.from(context).inflate(R.layout.fragment_favorites, container, false)
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         adapter = FoodAdapter("favorites", null)
         foods.adapter = adapter
 
-        disposable = CocotteDatabase.getInstance(context).foodDao()
+        disposable = CocotteDatabase.getInstance(context!!).foodDao()
                 .getFavorites()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe {
@@ -38,7 +37,7 @@ class FavoritesFragment : Fragment() {
                 }
 
         share.setOnClickListener {
-            if (this.foodList.isEmpty()) shareApp(context) else shareFoods(context, this.foodList)
+            if (this.foodList.isEmpty()) shareApp(context!!) else shareFoods(context!!, this.foodList)
         }
     }
 

@@ -36,7 +36,7 @@ class CategoriesAdapter : RecyclerView.Adapter<CategoryViewHolder>() {
 }
 
 class CategoryViewHolder(parent: ViewGroup) :
-        RecyclerView.ViewHolder(parent.inflate(R.layout.category_item)) {
+        RecyclerView.ViewHolder(parent.inflate(R.layout.category_item, false)) {
 
     fun bind(item: Category) = with(itemView) {
         cover.setImageResource(context.resources.getIdentifier(item.image, "drawable", context.packageName))

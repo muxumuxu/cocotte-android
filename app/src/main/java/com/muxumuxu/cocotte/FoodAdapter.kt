@@ -40,7 +40,7 @@ class FoodAdapter(private var source: String, private var info: String?)
         return holder.bind(foods[position])
     }
 
-    inner class FoodViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(parent.inflate(R.layout.food_item)) {
+    inner class FoodViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(parent.inflate(R.layout.food_item, false)) {
         fun bind(food: Food) = with(itemView) {
             risk_icon.setImageResource(context.resources.getIdentifier(food.danger, "drawable", context.packageName))
             risk_icon.contentDescription = food.danger
@@ -53,8 +53,7 @@ class FoodAdapter(private var source: String, private var info: String?)
 
                 val p1 = Pair.create(name as View, context.getString(R.string.food_title_transition_name))
                 val p2 = Pair.create(risk_icon as View, context.getString(R.string.food_risk_transition_name))
-                context.startActivity(intent, ActivityOptionsCompat.
-                        makeSceneTransitionAnimation(context as Activity, p1, p2)
+                context.startActivity(intent, ActivityOptionsCompat.makeSceneTransitionAnimation(context as Activity, p1, p2)
                         .toBundle())
             }
         }

@@ -17,19 +17,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         setContentView(R.layout.activity_main)
-
-        // TODO: Get from cache and network at same time
-        CocotteDatabase.getInstance(this).foodDao().getAll()
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe { foodList ->
-                    if (foodList.isEmpty()) {
-                        Endpoint.getInstance().fetchFoods()
-                                .subscribeOn(Schedulers.io())
-                                .subscribe(CocotteDatabase.getInstance(this).foodDao()::insertFoods)
-                    }
-                }
 
         setSupportActionBar(toolbar)
 

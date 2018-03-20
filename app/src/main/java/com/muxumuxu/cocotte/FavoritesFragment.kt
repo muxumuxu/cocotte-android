@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.muxumuxu.cocotte.data.Food
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.fragment_favorites.*
 
@@ -16,7 +17,7 @@ class FavoritesFragment : Fragment() {
 
     private lateinit var foodList: List<Food>
 
-    private lateinit var disposable: Disposable
+    private var compositeDisposable = CompositeDisposable()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return LayoutInflater.from(context).inflate(R.layout.fragment_favorites, container, false)
@@ -28,22 +29,22 @@ class FavoritesFragment : Fragment() {
         adapter = FoodAdapter("favorites", null)
         foods.adapter = adapter
 
-        disposable = CocotteDatabase.getInstance(context!!).foodDao()
+         CocotteDatabase.getInstance(view.context).foodDao()
                 .getFavorites()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe {
                     this.foodList = it
                     updateFoods(this.foodList)
-                }
+                }.addTo(compositeDisposable)
 
         share.setOnClickListener {
-            if (this.foodList.isEmpty()) shareApp(context!!) else shareFoods(context!!, this.foodList)
+            if (this.foodList.isEmpty()) shareApp(view.context) else shareFoods(view.context, this.foodList)
         }
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
-        disposable.dispose()
+        compositeDisposable.dispose()
     }
 
     private fun updateFoods(foodList: List<Food>) {

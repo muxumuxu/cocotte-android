@@ -10,7 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.l4digital.fastscroll.FastScroller
 import com.muxumuxu.cocotte.analytics.Analytics
-import com.muxumuxu.cocotte.analytics.Event
+import com.muxumuxu.cocotte.analytics.SelectFoodEvent
 import com.muxumuxu.cocotte.data.Food
 import kotlinx.android.synthetic.main.food_item.view.*
 
@@ -47,7 +47,7 @@ class FoodAdapter(private var source: String, private var info: String?)
             name.text = food.name
 
             food_container.setOnClickListener {
-                Analytics.trackEvent(Event.selectFood(food.name, this@FoodAdapter.source, this@FoodAdapter.info))
+                Analytics.trackEvent(SelectFoodEvent(food.name, this@FoodAdapter.source, this@FoodAdapter.info))
 
                 val intent = Intent(context, FoodActivity::class.java).putExtra(FoodActivity.FOOD_ID_PARAM, food.id)
 

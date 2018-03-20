@@ -2,26 +2,21 @@ package com.muxumuxu.cocotte.analytics
 
 import org.json.JSONObject
 
-// TODO: Move to sealed class with inheritance
-open class Event(val name: String, val params: JSONObject) {
-    companion object {
-        fun selectCategory(categoryName: String) =
-                Event("SelectCategory", JSONObject().put("name", categoryName))
+sealed class Event(val name: String, val params: JSONObject)
 
-        fun selectFood(foodName: String, source: String, search: String?) =
-                Event("SelectFood", JSONObject()
-                        .put("name", foodName)
-                        .put("from", source)
-                        .put("search", search))
+open class SelectCategoryEvent(name: String) :
+        Event("SelectCategory", JSONObject().put("name", name))
 
-        fun favorize(foodName: String, add: Boolean) =
-                Event(if (add) "AddFav" else "RemoveFav", JSONObject().put("name", foodName))
+open class SelectFoodEvent(foodName: String, source: String, search: String?) :
+        Event("SelectFood", JSONObject()
+                .put("name", foodName)
+                .put("from", source)
+                .put("search", search))
 
-        fun share(foodName: String, categoryName: String) =
-                Event("Share", JSONObject()
-                        .put("food", foodName)
-                        .put("category", categoryName))
+open class FavorizeEvent(foodName: String, add: Boolean) :
+        Event(if (add) "AddFav" else "RemoveFav", JSONObject().put("name", foodName))
 
-    }
-}
-
+open class ShareEvent(foodName: String, categoryName: String) :
+        Event("Share", JSONObject()
+                .put("food", foodName)
+                .put("category", categoryName))
